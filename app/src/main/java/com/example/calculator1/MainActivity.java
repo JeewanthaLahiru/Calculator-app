@@ -31,8 +31,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView secondaryView;
 
     private int sum = 0;
+    private double sumdouble = 0.0;
     private String mainTxt;
     private String secondaryTxt;
+    private int logic = 0;
 
 
     @Override
@@ -133,6 +135,39 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mainTxt+="9";
                 mainView.setText(mainTxt);
+            }
+        });
+
+
+        buttonPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logic = 1;
+                if(sumdouble == 0.0){
+                    sumdouble = Double.parseDouble(mainTxt);
+                }else{
+                    sumdouble+=Double.parseDouble(mainTxt);
+                }
+                mainTxt = "";
+                secondaryTxt = Double.toString(sumdouble);
+                secondaryView.setText(secondaryTxt);
+            }
+        });
+
+        buttonEquals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (logic){
+                    case 1:
+                        sumdouble += Double.parseDouble(mainTxt);
+                        break;
+                    default:
+                        return;
+                }
+                mainView.setText(Double.toString(sumdouble));
+                secondaryTxt = Double.toString(sumdouble);
+                secondaryView.setText(secondaryTxt);
+                mainTxt = "0";
             }
         });
     }
